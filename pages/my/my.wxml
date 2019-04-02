@@ -1,0 +1,99 @@
+<van-notify id="custom-selector" />
+<van-toast id="van-toast" />
+<block wx:if="{{type==0}}">
+  <!--0为面试者-->
+  <view class=''>
+    <text class='fa fa-camera-retro'>面试者<icon class="fa fa-angle-right fa-normal" /></text>
+    <button class='menus' bindtap='login'>
+      <view class="icon-cog">
+        <icon class="fa fa-cog fa-spin fa-2x"></icon>
+      </view>
+      <view class='menu'>
+        <text class='choose'>面试官登录</text>
+        <span class="right-icon">
+          <icon class="fa fa-angle-right fa-normal"></icon>
+        </span>
+      </view>
+    </button>
+    <button class='menus' type='' bindtap='changeName'>
+      <view class="icon-cog">
+        <icon class="fa fa-share fa-2x"></icon>
+      </view>
+      <view class='menu'>
+        <text class='choose'>更改姓名</text>
+        <span class="right-icon">
+          <icon class="fa fa-angle-right fa-normal"></icon>
+        </span>
+      </view>
+    </button>
+  </view>
+</block>
+<block wx:if="{{type==1}}">
+  <!--1为管理者-->
+  <view class=''>
+    <text class='fa fa-camera-retro'>管理者<icon class="fa fa-angle-right fa-normal" /></text>
+    <button class='menus' type='' bindtap='startivright'>
+      <view class="icon-cog">
+        <icon class="fa fa-share fa-2x"></icon>
+      </view>
+      <view class='menu'>
+        <text class='choose'>开始一场面试</text>
+        <span class="right-icon">
+          <icon class="fa fa-angle-right fa-normal"></icon>
+        </span>
+      </view>
+    </button>
+    <button class='menus' type='warn' bindtap='logout'>
+      <view class="icon-cog">
+        <icon class="fa fa-cog fa-spin fa-2x"></icon>
+      </view>
+      <view class='menu'>
+        <text class='choose'>面试官退出</text>
+        <span class="right-icon">
+          <icon class="fa fa-angle-right fa-normal"></icon>
+        </span>
+      </view>
+    </button>
+    <!-- 右侧弹出层 -->
+    <van-popup show="{{ show }}" position="right" overlay="{{ false }}" z-index="150">
+      <view class='right' style='height:{{windowHeight}}px;width:{{windowWidth}}px'>
+        <button class='cancel' bindtap='onClose' plain='true' type='warn' size='mini'> X </button>
+        <view>
+
+          <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+            <view class="picker">
+              选择时间: {{time}}
+            </view>
+          </picker>
+
+          <picker mode="date" value="{{date}}" start="2019-01-01" end="2099-09-01" bindchange="bindDateChange">
+            <view class="picker">
+              选择日期: {{date}}
+            </view>
+          </picker>
+          <!--输入日期-->
+          <view class='position'>
+            <van-cell-group>
+              <van-field value="{{ message }}" type="textarea" placeholder="请输入面试地点" autosize border="true" bind:change="location" size="large" left-icon="fa fa-bolt  fa-2x" error-message="{{errmsg}}" bind:blur="isEmpty" />
+            </van-cell-group>
+          </view>
+        </view>
+        <view class='startButton'>
+        <button bindtap='startiv' type="primary">发起本次面试</button>
+        </view>
+      </view>
+    </van-popup>
+  </view>
+</block>
+<!-- <view class="btn-area">
+  <navigator target="miniProgram" open-type="navigate" app-id="wxce0c4f38650cfe54" path="" extra-data="" version="release">
+    打开绑定的小程序----Liw
+  </navigator>
+</view> -->
+<modal id="modal" hidden="{{hiddenmodalput}}" title="登录" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirmLog">
+  <input type='password' name="name" placeholder="请输入密码" bindinput='getPwd'></input>
+  <text>没有账号?请联系管理员</text>
+</modal>
+<modal id="modal2" hidden="{{hiddenmodalChange}}" title="更改姓名" confirm-text="确认" cancel-text="取消" bindcancel="cancel" bindconfirm="confirmName">
+  <input type='text' name="reName" placeholder="请输入姓名" bindinput='getName'></input>
+</modal>

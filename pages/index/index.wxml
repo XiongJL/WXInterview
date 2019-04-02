@@ -1,0 +1,58 @@
+<van-notify id="custom-selector" />
+<!-- 顶部开始-->
+<view>
+
+</view>
+
+<!-- 中部-->
+
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{name}}</text>
+    </block>
+  </view>
+  <block wx:if="{{type==0}}">
+    <view>
+      <view wx:if="{{interview.length>0 && qrFlag}}">
+        <view>您有{{interview.length}}场面试</view>
+        <view  wx:for="{{interview}}">
+        <view>地点:  {{item.location}} </view>  
+        <view> 时间: {{item.startTime}}</view> 
+        </view>
+      </view>
+      <view class='scan'><van-button wx:if="{{qrFlag}}" bindtap='qr' round type="danger"> 扫码预约面试 </van-button></view>
+      <van-button wx:if="{{waitFlag}}" round type="danger" loading="true" loading-text="处理中,点击取消" bindtap='cancelQr'></van-button>
+      <view wx:if="{{!qrFlag}}">
+        <text class='msg'>您前面还有{{frontNum}}位面试者</text>
+        <view class="buttons">
+         <van-button  bindtap='qr' round type="info"> 重新扫码预约</van-button>
+         <van-button  bindtap='refuse' round type="danger"> 返回</van-button>
+         </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{type==1}}">
+
+    <van-button wx:if="{{qrFlag}}" bindtap='onOpen' round type="danger">面试官 的二维码展示</van-button>
+    <!-- <text>当前面试人员  xxxx</text>
+    <button>结束该人员面试.</button> -->
+    <!-- 右侧弹出层 -->
+    <van-popup show="{{ show }}" position="right" overlay="{{ false }}">
+      <view class='right' style='height:{{windowHeight * 0.92}}px;width:{{windowWidth}}px'>
+        <button class='cancel'bindtap='onClose' size='mini' plain='true'type='warn'> X </button>
+        <view></view>
+        <text class='msg'>时间: {{startTime}}</text>
+        <text class='msg'>地点: {{location}}</text>
+        <image class='image'src="{{qrSrc}}" lazy-load="true" mode="aspectFill"></image>
+        <button class='download'bindtap='downloadQr' size='lg'plain='true' type='primary'> 下载二维码 </button>
+        <!-- <text>若无显示请发起一场面试</text>
+        <text>若有显示二维码图片,提供扫描加入面试的功能</text> -->
+      </view>
+    </van-popup>
+  </block>
+
+</view>

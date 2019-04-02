@@ -1,0 +1,56 @@
+.icon-cog {
+  position: absolute; /*设置为绝对定位*/
+  z-index: 1; /*设置重叠的上下次序，值越大月在上方*/
+  color: rgb(142, 194, 236);
+}
+
+.right-icon {
+  position:fixed; 
+  left:90%;  
+}
+
+.menu {
+  left: 20%;
+  border-bottom: 0.5rpx solid rgb(170, 164, 164);
+  height: 88rpx;
+  line-height: 88rpx; /*行内居中*/
+}
+.choose{
+  position: fixed;
+  left: 20%;
+}
+
+.menus {
+  width: 100%;
+}
+
+.btn-area {
+  height: 100px;
+  width: 100%;
+  background-color: #ddd;
+  position: fixed;
+  bottom: 0;
+}
+button {
+  height: 99rpx;
+  width: 90%;
+  margin-top: 30rpx;
+}
+.cancel{
+  margin: 0;
+  height: 60rpx;
+  width: 120rpx;
+}
+.picker{
+  margin: 10rpx;
+  border-bottom: 0.5rpx solid rgb(170, 164, 164);
+}
+.position{
+  border-bottom: 0.5rpx solid rgb(170, 164, 164);
+}
+.startButton{
+  position: fixed;
+  top: 70%;
+  width: 90%;
+  margin: 0 5% 0 5%;
+}
