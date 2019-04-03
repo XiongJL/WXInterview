@@ -103,8 +103,8 @@ App({
     })
   },
   globalData: { //全局变量  
-   // ip: "https://localhost:443/interview/",
-   // imageIp: "https://localhost/qrcode/",
+    //ip: "https://172.60.45.61:443/interview/",
+   // imageIp: "https://172.60.45.61/qrcode/",
     ip: "https://mesqrcode.liwinon.com/interview/",
     imageIp: "https://mesqrcode.liwinon.com/qrcode/",
    

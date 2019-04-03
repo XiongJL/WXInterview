@@ -27,6 +27,7 @@ Page({
     console.log("定时器开始")
     var timerNum = setTimeout(function () {
       console.log("循环方法一"+new Date())
+      that.getfrontNum();
       that.startReportHeart();
     }, app.globalData.num_delay)
     // 保存定时器name
@@ -61,13 +62,24 @@ Page({
         //do nothing
     }else{
       wx.downloadFile({
-        url: app.globalData.ip + 'api/downloadQrcode',
-        data: {
-          name: imageName
-        },
-        filePath: "/downloadQrcode/" ,
+        url: this.data.qrSrc,
         success: res=>{
-          console.log("ok")
+          // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+          if (res.statusCode === 200){
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success(res) {
+                wx.showToast({
+                  title: '保存图片成功！',
+                })
+              },
+              fail(res) {
+                wx.showToast({
+                  title: '保存图片失败！',
+                })
+              }
+            })
+          }
         }
       })
     }
@@ -92,7 +104,7 @@ Page({
       },
       method: 'GET',
       success: function (res) {
-        console.log("api/DidJion 返回的数组的id号:" + res.data[0].ivId)
+        console.log("api/DidJion 返回的数组的id号:" + res.data[0])
         //[{"ivId":97,"openid":"oHHp45HxcRuznJYKXyyJM3DJxV5w","location":"第五次","publishTime":"2019-04-01 11:16:38","startTime":"2019-03-01 12:01:00","duringTime":20,"codeInfo":"https://localhost/interview/qrCode/addInterview?ivid=97","codeImg":"D:\\qrcode\\oHHp45HxcRuznJYKXyyJM3DJxV5w1551412860000第五次.png","ivType":0}]
         var interview = res.data
         that.setData({
